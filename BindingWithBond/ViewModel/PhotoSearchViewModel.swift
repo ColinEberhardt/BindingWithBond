@@ -34,5 +34,17 @@ class PhotoSearchViewModel {
     
     searchString.map { $0!.characters.count > 3 }
       .bindTo(validSearchText)
+    
+    searchString
+      .filter { $0!.characters.count > 3 }
+      .throttle(0.5, queue: Queue.Main)
+      .observe {
+        [unowned self] text in
+        self.executeSearch(text!)
+    }
+  }
+  
+  func executeSearch(text: String) {
+    print(text)
   }
 }
