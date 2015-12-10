@@ -31,10 +31,12 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    searchTextField.bnd_text.observe {
-      text in
-      print(text)
-    }
+    searchTextField.bnd_text
+      .map { $0?.uppercaseString }
+      .observe {
+        text in
+        print(text)
+      }
   }
 
 }
