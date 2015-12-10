@@ -40,6 +40,25 @@ class ViewController: UIViewController {
     
     viewModel.validSearchText.map { $0 ? UIColor.blackColor() : UIColor.redColor() }
       .bindTo(searchTextField.bnd_textColor)
+    
+    viewModel.searchResults.lift().bindTo(resultsTable) { indexPath, dataSource, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath) as! PhotoTableViewCell
+      let photo = dataSource[indexPath.section][indexPath.row]
+      cell.title!.text = photo.title
+      
+      let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+      let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+      cell.photo.image = nil
+      
+      dispatch_async(backgroundQueue) {
+        if let imageData = NSData(contentsOfURL: photo.url) {
+          dispatch_async(dispatch_get_main_queue()) {
+            cell.photo.image = UIImage(data: imageData)
+          }
+        }
+      }
+      return cell
+    }
   }
 
 }
