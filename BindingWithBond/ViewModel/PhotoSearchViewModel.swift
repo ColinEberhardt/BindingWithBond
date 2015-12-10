@@ -26,13 +26,13 @@ import Bond
 class PhotoSearchViewModel {
   
   let searchString = Observable<String?>("")
+  let validSearchText = Observable<Bool>(false)
+  
   
   init() {
     searchString.value = "Bond"
     
-    searchString.observeNew {
-      text in
-      print(text)
-    }
+    searchString.map { $0!.characters.count > 3 }
+      .bindTo(validSearchText)
   }
 }

@@ -37,6 +37,9 @@ class ViewController: UIViewController {
   
   func bindViewModel() {
     viewModel.searchString.bidirectionalBindTo(searchTextField.bnd_text)
+    
+    viewModel.validSearchText.map { $0 ? UIColor.blackColor() : UIColor.redColor() }
+      .bindTo(searchTextField.bnd_textColor)
   }
 
 }
