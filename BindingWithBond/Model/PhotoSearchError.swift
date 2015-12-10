@@ -20,15 +20,11 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
-
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    return true
-  }
+// Describes the various errors that can occur when querying the 500px API
+enum PhotoSearchError: ErrorType {
+  case RequestError
+  case ParseError
+  case MalformedRequest
 }
-

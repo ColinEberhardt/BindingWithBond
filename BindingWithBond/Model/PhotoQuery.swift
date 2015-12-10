@@ -20,15 +20,13 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
-
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    return true
-  }
+// Represents a query that can be used to retrieve photos from the 500px API
+struct PhotoQuery {
+  var text = ""
+  var creativeCommonsLicence = false
+  var dateFilter = false
+  var maxDate = NSDate()
+  var minDate = NSDate()
 }
-

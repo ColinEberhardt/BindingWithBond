@@ -20,15 +20,13 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+typealias PhotoArray = [Photo]
 
-  var window: UIWindow?
-
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    return true
-  }
+// Represents a single photo as returned by the 500px API
+struct Photo {
+  let title: String
+  let url: NSURL
+  let date: NSDate
 }
-

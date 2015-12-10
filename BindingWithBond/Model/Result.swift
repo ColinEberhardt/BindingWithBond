@@ -20,15 +20,10 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
-
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    return true
-  }
+// Describes the result of an asynchronous query
+enum Result<T> {
+  case Success(T)
+  case Error(ErrorType)
 }
-
