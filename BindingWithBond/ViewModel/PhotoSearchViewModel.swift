@@ -20,24 +20,19 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
+import Bond
 
-class ViewController: UIViewController {
+class PhotoSearchViewModel {
   
-  @IBOutlet weak var searchTextField: UITextField!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet weak var resultsTable: UITableView!
+  let searchString = Observable<String?>("")
   
-  private let viewModel = PhotoSearchViewModel()
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    bindViewModel()
+  init() {
+    searchString.value = "Bond"
+    
+    searchString.observeNew {
+      text in
+      print(text)
+    }
   }
-  
-  func bindViewModel() {
-    viewModel.searchString.bidirectionalBindTo(searchTextField.bnd_text)
-  }
-
 }
-
