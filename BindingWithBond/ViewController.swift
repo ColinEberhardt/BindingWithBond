@@ -32,11 +32,8 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     
     searchTextField.bnd_text
-      .map { $0?.uppercaseString }
-      .observe {
-        text in
-        print(text)
-      }
+      .map { $0!.characters.count > 0 }
+      .bindTo(activityIndicator.bnd_animating)
   }
 
 }
