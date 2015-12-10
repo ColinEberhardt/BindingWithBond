@@ -33,6 +33,7 @@ class PhotoSearchViewModel {
   let searchString = Observable<String?>("")
   let validSearchText = Observable<Bool>(false)
   let searchResults = ObservableArray<Photo>()
+  let searchInProgress = Observable<Bool>(false)
   
   
   init() {
@@ -54,8 +55,11 @@ class PhotoSearchViewModel {
     var query = PhotoQuery()
     query.text = searchString.value ?? ""
     
+    searchInProgress.value = true
+    
     searchService.findPhotos(query) {
       [unowned self] result in
+      self.searchInProgress.value = false
       switch result {
       case .Success(let photos):
         self.searchResults.removeAll()

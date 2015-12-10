@@ -38,7 +38,8 @@ class ViewController: UIViewController {
   func bindViewModel() {
     viewModel.searchString.bidirectionalBindTo(searchTextField.bnd_text)
     
-    viewModel.validSearchText.map { $0 ? UIColor.blackColor() : UIColor.redColor() }
+    viewModel.validSearchText
+      .map { $0 ? UIColor.blackColor() : UIColor.redColor() }
       .bindTo(searchTextField.bnd_textColor)
     
     viewModel.searchResults.lift().bindTo(resultsTable) { indexPath, dataSource, tableView in
@@ -58,6 +59,13 @@ class ViewController: UIViewController {
       }
       return cell
     }
+    
+    viewModel.searchInProgress
+      .map { !$0 }.bindTo(activityIndicator.bnd_hidden)
+    
+    viewModel.searchInProgress
+      .map { $0 ? CGFloat(0.5) : CGFloat(1.0) }
+      .bindTo(resultsTable.bnd_alpha)
   }
 
 }
