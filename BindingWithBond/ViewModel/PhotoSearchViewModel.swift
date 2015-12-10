@@ -34,6 +34,7 @@ class PhotoSearchViewModel {
   let validSearchText = Observable<Bool>(false)
   let searchResults = ObservableArray<Photo>()
   let searchInProgress = Observable<Bool>(false)
+  let errorMessages = EventProducer<String>()
   
   
   init() {
@@ -65,7 +66,7 @@ class PhotoSearchViewModel {
         self.searchResults.removeAll()
         self.searchResults.insertContentsOf(photos, atIndex: 0)
       case .Error:
-        print("Sad face :-(")
+        self.errorMessages.next("There was an API request issue of some sort. Go ahead, hit me with that 1-star review!")
       }
     }
   }

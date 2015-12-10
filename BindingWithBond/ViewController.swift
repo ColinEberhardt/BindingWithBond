@@ -66,6 +66,17 @@ class ViewController: UIViewController {
     viewModel.searchInProgress
       .map { $0 ? CGFloat(0.5) : CGFloat(1.0) }
       .bindTo(resultsTable.bnd_alpha)
+    
+    viewModel.errorMessages.observe {
+      [unowned self] error in
+      
+      let alertController = UIAlertController(title: "Something went wrong :-(", message: error, preferredStyle: .Alert)
+      self.presentViewController(alertController, animated: true, completion: nil)
+      let actionOk = UIAlertAction(title: "OK", style: .Default,
+        handler: { action in alertController.dismissViewControllerAnimated(true, completion: nil) })
+      
+      alertController.addAction(actionOk)
+    }
   }
 
 }
