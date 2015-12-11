@@ -64,6 +64,8 @@ class SettingsViewController: UITableViewController {
     opacity.bindTo(minPickerCell.rightLabel.bnd_alpha)
     opacity.bindTo(maxPickerCell.rightLabel.bnd_alpha)
 
+    bind(viewModel.minUploadDate, picker: minPickerCell)
+    bind(viewModel.maxUploadDate, picker: maxPickerCell)
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -81,5 +83,17 @@ class SettingsViewController: UITableViewController {
       return rowHeight
     }
     return datePickerCell.datePickerHeight()
+  }
+  
+  private func bind(modelDate: Observable<NSDate>, picker: DatePickerCell) {
+    modelDate.observe {
+      event in
+      picker.date = event
+    }
+    
+    picker.datePicker.bnd_date.observe {
+      event in
+      modelDate.value = event
+    }
   }
 }
