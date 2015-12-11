@@ -30,12 +30,12 @@ class PhotoSearchViewModel {
     return PhotoSearch(key: apiKey)
   }()
   
+  let searchMetadataViewModel = PhotoSearchMetadataViewModel()
   let searchString = Observable<String?>("")
   let validSearchText = Observable<Bool>(false)
   let searchResults = ObservableArray<Photo>()
   let searchInProgress = Observable<Bool>(false)
   let errorMessages = EventProducer<String>()
-  
   
   init() {
     searchString.value = "Bond"
@@ -52,9 +52,14 @@ class PhotoSearchViewModel {
     }
   }
   
+  
   func executeSearch(text: String) {
     var query = PhotoQuery()
     query.text = searchString.value ?? ""
+    query.creativeCommonsLicence = searchMetadataViewModel.creativeCommons.value
+    query.dateFilter = searchMetadataViewModel.dateFilter.value
+    query.minDate = searchMetadataViewModel.minUploadDate.value
+    query.maxDate = searchMetadataViewModel.maxUploadDate.value
     
     searchInProgress.value = true
     

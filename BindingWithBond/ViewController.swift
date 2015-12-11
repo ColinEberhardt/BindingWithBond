@@ -78,6 +78,14 @@ class ViewController: UIViewController {
       alertController.addAction(actionOk)
     }
   }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowSettings" {
+      let navVC = segue.destinationViewController as! UINavigationController
+      let settingsVC = navVC.topViewController as! SettingsViewController
+      settingsVC.viewModel = viewModel.searchMetadataViewModel
+    }
+  }
 
 }
 

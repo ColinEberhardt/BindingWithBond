@@ -36,6 +36,8 @@ class SettingsViewController: UITableViewController {
   @IBOutlet weak var creativeCommonsSwitch: UISwitch!
   @IBOutlet weak var filterDatesSwitch: UISwitch!
   
+  var viewModel: PhotoSearchMetadataViewModel?
+  
   @IBAction func doneButtonClicked(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil);
   }
@@ -45,6 +47,15 @@ class SettingsViewController: UITableViewController {
     
     maxPickerCell.leftLabel.text = "Max Date"
     minPickerCell.leftLabel.text = "Min Date"
+    
+    bindViewModel()
+  }
+  
+  func bindViewModel() {
+    guard let viewModel = viewModel else {
+      return
+    }
+    viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
