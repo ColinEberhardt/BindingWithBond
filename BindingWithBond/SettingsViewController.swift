@@ -56,6 +56,14 @@ class SettingsViewController: UITableViewController {
       return
     }
     viewModel.creativeCommons.bidirectionalBindTo(creativeCommonsSwitch.bnd_on)
+    viewModel.dateFilter.bidirectionalBindTo(filterDatesSwitch.bnd_on)
+    
+    let opacity = viewModel.dateFilter.map { $0 ? CGFloat(1.0) : CGFloat(0.5) }
+    opacity.bindTo(minPickerCell.leftLabel.bnd_alpha)
+    opacity.bindTo(maxPickerCell.leftLabel.bnd_alpha)
+    opacity.bindTo(minPickerCell.rightLabel.bnd_alpha)
+    opacity.bindTo(maxPickerCell.rightLabel.bnd_alpha)
+
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
